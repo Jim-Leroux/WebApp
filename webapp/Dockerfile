@@ -1,11 +1,10 @@
-FROM node:16-alpine
+FROM nginx:alpine
 
-WORKDIR /app
+RUN apk add --no-cache nodejs npm
 
-COPY ./app /app
+COPY ./webapp /usr/share/nginx/html
 
+WORKDIR /usr/share/nginx/html
 RUN npm install
-
-EXPOSE 80
 
 CMD ["npm", "test"]
