@@ -1,5 +1,11 @@
-FROM nginx:alpine
+FROM node:16-alpine
 
-COPY ./app /usr/share/nginx/html
+WORKDIR /app
+
+COPY ./app /app
+
+RUN npm install
 
 EXPOSE 80
+
+CMD ["npm", "test"]
