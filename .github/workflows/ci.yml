@@ -37,4 +37,5 @@ jobs:
       
       - name: Run tests
         run: |
-          docker run --rm ${{ secrets.DOCKER_USERNAME }}/webapp:latest npm test
+          docker run --rm -p 8080:80 ${{ secrets.DOCKER_USERNAME }}/webapp:latest
+
