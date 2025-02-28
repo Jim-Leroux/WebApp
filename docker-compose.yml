@@ -1,0 +1,13 @@
+services:
+  web:
+    build: ./webapp
+    ports:
+      - "8080:80"
+    volumes:
+      - ./webapp/app:/usr/share/nginx/html
+    networks:
+      - devops_network
+
+networks:
+  devops_network:
+    driver: bridge
