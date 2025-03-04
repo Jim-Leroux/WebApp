@@ -48,12 +48,24 @@ jobs:
             docker logs $(docker ps -q) && exit 1
           fi
 
-      - name: Update deployment.yml with image name
+      - name: Vérification avant sed
         run: |
-          echo "DOCKER_IMAGE_NAME length: ${#DOCKER_IMAGE_NAME}"
+          echo "Image Name: $IMAGE_NAME"
         env:
-          DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
+          IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
 
+      - name: Update deployment.yml with image name
+        env:
+          IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
+        run: |
+          echo "Avant modification:"
+          cat k8s/deployment.yml
+
+          # Modification avec sed
+          sed -i "s|image: .*|image: \"$IMAGE_NAME\"|" k8s/deployment.yml
+
+          echo "Après modification:"
+          cat k8s/deployment.yml
 
       - name: Set up Azure CLI
         run: |
