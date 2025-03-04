@@ -26,7 +26,7 @@ resource "azurerm_kubernetes_cluster" "aks_webapp" {
   default_node_pool {
     name       = "nodepool1"
     node_count = 1
-    vm_size    = "Standard_B1ms"
+    vm_size    = "Standard_B2s"
   }
 
   identity {
@@ -36,6 +36,9 @@ resource "azurerm_kubernetes_cluster" "aks_webapp" {
 
 output "aks_kube_config" {
   description = "Kubeconfig file pour se connecter au cluster AKS"
-  value       = azurerm_kubernetes_cluster.aks_webapp.kube_config[0].raw_kube_config
+  value       = azurerm_kubernetes_cluster.aks_webapp.kube_config_raw
   sensitive   = true
+  depends_on  = [azurerm_kubernetes_cluster.aks_webapp]
 }
+
+
