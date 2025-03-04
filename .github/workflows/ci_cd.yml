@@ -34,7 +34,7 @@ jobs:
 
       - name: Run tests
         run: |
-          docker run --rm -d -p 8080:80 ${{ secrets.DOCKER_IMAGE_NAME }}
+          docker run --rm -d -p 8080:80 jimleroux/webapp:latest
 
       - name: Wait for container to be ready
         run: sleep 5

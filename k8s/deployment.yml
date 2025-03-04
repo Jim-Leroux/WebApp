@@ -17,9 +17,6 @@ spec:
         image: jimleroux/webapp:latest
         ports:
         - containerPort: 80
-        envFrom:
-        - secretRef:
-            name: my-app-secrets
 ---
 apiVersion: v1
 kind: Service
