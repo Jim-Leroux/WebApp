@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: webapp-container
-        image: webapp-docker-image/webapp:latest
+        image: ${{ secrets.DOCKER_IMAGE_NAME }}
         ports:
         - containerPort: 80
         envFrom:
