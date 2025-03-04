@@ -49,12 +49,10 @@ jobs:
           fi
 
       - name: Update deployment.yml with image name
-        env:
-          IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
         run: |
-          echo "Utilisation de l'image: $IMAGE_NAME"
-          sed -i "s|image: .*|image: \"$IMAGE_NAME\"|" k8s/deployment.yml
-          cat k8s/deployment.yml
+          echo "DOCKER_IMAGE_NAME length: ${#DOCKER_IMAGE_NAME}"
+        env:
+          DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
 
 
       - name: Set up Azure CLI
