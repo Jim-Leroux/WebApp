@@ -51,6 +51,7 @@ jobs:
       - name: Update deployment.yml with image name
         run: |
           sed -i "s|image: .*|image: \"${{ secrets.DOCKER_IMAGE_NAME }}\"|" k8s/deployment.yml
+          cat k8s/deployment.yml
 
       - name: Set up Azure CLI
         run: |
