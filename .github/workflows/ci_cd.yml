@@ -56,14 +56,10 @@ jobs:
 
       - name: Update deployment.yml with image name
         env:
-          IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
+          DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
         run: |
-          echo "Avant modification:"
-          cat k8s/deployment.yml
-
-          # Modification avec sed
-          sed -i "s|image: .*|image: \"$IMAGE_NAME\"|" k8s/deployment.yml
-
+          echo "DOCKER_IMAGE_NAME avant sed: $DOCKER_IMAGE_NAME"
+          sed -i "s|image: .*|image: \"$DOCKER_IMAGE_NAME\"|" k8s/deployment.yml
           echo "Après modification:"
           cat k8s/deployment.yml
 
