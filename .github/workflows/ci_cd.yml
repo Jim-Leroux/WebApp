@@ -52,19 +52,15 @@ jobs:
         run: |
           sed -i "s|image: .*|image: \"${{ secrets.DOCKER_IMAGE_NAME }}\"|" k8s/deployment.yml
 
-      - name: Set up Azure credentials
-        run: |
-          echo "AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> $GITHUB_ENV
-          echo "AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> $GITHUB_ENV
-          echo "AZURE_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
-          echo "AZURE_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
-
-      - name: Configure Azure CLI
+      - name: Set up Azure CLI
         run: |
           az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
 
-      - name: Deploy to AKS
+      - name: Get AKS credentials
         run: |
           az aks get-credentials --resource-group rg-webapp --name webapp
-          kubectl apply -f k8s/
 
+      - name: Deploy to AKS
+        run: |
+          kubectl apply -f k8s/deployment.yml
+          kubectl apply -f k8s/service.yml
