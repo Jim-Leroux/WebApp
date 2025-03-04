@@ -1,3 +1,8 @@
+variable "azure_subscription_id" {}
+variable "azure_client_id" {}
+variable "azure_client_secret" {}
+variable "azure_tenant_id" {}
+
 provider "azurerm" {
   features {}
 
@@ -6,7 +11,6 @@ provider "azurerm" {
   client_secret   = var.azure_client_secret
   tenant_id       = var.azure_tenant_id
 }
-
 
 resource "azurerm_resource_group" "rg_webapp" {
   name     = "rg-webapp"
@@ -32,7 +36,6 @@ resource "azurerm_kubernetes_cluster" "aks_webapp" {
 
 output "aks_kube_config" {
   description = "Kubeconfig file pour se connecter au cluster AKS"
-  value       = azurerm_kubernetes_cluster.aks_webapp.kube_config_raw
-  sensitive   = true 
+  value       = azurerm_kubernetes_cluster.aks_webapp.kube_config[0].raw_kube_config
+  sensitive   = true
 }
-

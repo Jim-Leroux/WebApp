@@ -65,5 +65,6 @@ jobs:
 
       - name: Deploy to AKS
         run: |
-          az aks get-credentials --resource-group webapp-resource-group --name webapp-aks
+          az aks get-credentials --resource-group rg-webapp --name webapp
           kubectl apply -f k8s/
+
