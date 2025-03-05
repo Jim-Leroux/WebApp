@@ -56,6 +56,7 @@ jobs:
         run: |
           az aks get-credentials --resource-group rg-webapp --name webapp
 
-      - name: Deploy to AKS
+      - name: Restart Kubernetes deployment
         run: |
-          kubectl apply -f k8s/deployment.yml
+          kubectl rollout restart deployment webapp-deployment
+
