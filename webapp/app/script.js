@@ -2,7 +2,7 @@
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = themeToggle.querySelector('.theme-icon');
 
-const currentTheme = 'light';
+const currentTheme = 'dark';
 
 if (currentTheme === 'light') {
     document.body.classList.add('light-theme');
