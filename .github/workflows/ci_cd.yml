@@ -30,7 +30,7 @@ jobs:
         with:
           context: ./webapp
           push: true
-          tags: jimleroux/webapp:latest
+          tags: jimleroux/webapp:${{ github.sha }}
 
       - name: Run tests
         run: |
@@ -60,7 +60,8 @@ jobs:
         run: |
           az aks get-credentials --resource-group rg-webapp --name webapp
 
-      - name: Restart Kubernetes deployment
+      - name: Deploy to AKS
         run: |
-          kubectl rollout restart deployment webapp-deployment
+          kubectl set image deployment/webapp-deployment webapp-container=jimleroux/webapp:${{ github.sha }}
+
 
